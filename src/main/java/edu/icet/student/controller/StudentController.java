@@ -9,18 +9,24 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/student")
+//@RequestMapping("/student")
 public class StudentController {
     @Autowired
     StudentService service;
 
-    @PostMapping
+    @PostMapping("/studentt")
     public void setStudent(@RequestBody Student student) {
         service.setStudent(student);
     }
 
-    @GetMapping
+    @GetMapping("/student")
     public Iterable<StudentEntity> getAll() {
         return service.getAll();
+    }
+
+    @DeleteMapping("/student/{id}")
+    public String deleteStudentById(@PathVariable("id") Long id){
+        service.deleteStudentById(id);
+        return "Student Details Deleted.";
     }
 }
