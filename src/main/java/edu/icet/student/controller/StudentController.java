@@ -14,7 +14,7 @@ public class StudentController {
     @Autowired
     StudentService service;
 
-    @PostMapping("/studentt")
+    @PostMapping("/student")
     public void setStudent(@RequestBody Student student) {
         service.setStudent(student);
     }
@@ -22,6 +22,11 @@ public class StudentController {
     @GetMapping("/student")
     public Iterable<StudentEntity> getAll() {
         return service.getAll();
+    }
+
+    @PutMapping("/student/{id}")
+    public StudentEntity updateStudent(@RequestBody StudentEntity student, @PathVariable("id") Long id){
+        return service.updateStudent(student,id);
     }
 
     @DeleteMapping("/student/{id}")

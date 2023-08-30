@@ -10,6 +10,9 @@ public interface StudentService {
     // Read operation
     Iterable<StudentEntity> getAll();
 
+    //Update operation
+    StudentEntity updateStudent(StudentEntity student, Long id);
+
     //Delete Operation
     void deleteStudentById(Long id);
 
