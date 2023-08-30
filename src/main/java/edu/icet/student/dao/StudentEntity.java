@@ -18,5 +18,10 @@ public class StudentEntity {
     private Long id;
     private String firstName;
     private String lastName;
+    private String email;
+    private String dob;
+    private String gender;
+    private String address;
+    private String telNo;
     private String batch;
 }

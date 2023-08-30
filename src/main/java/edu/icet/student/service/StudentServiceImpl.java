@@ -16,6 +16,11 @@ public class StudentServiceImpl implements StudentService {
         StudentEntity entity = new StudentEntity();
         entity.setFirstName(student.getFirstName());
         entity.setLastName(student.getLastName());
+        entity.setEmail(student.getEmail());
+        entity.setDob(student.getDob());
+        entity.setGender(student.getGender());
+        entity.setAddress(student.getAddress());
+        entity.setTelNo(student.getTelNo());
         entity.setBatch(student.getBatch());
         repository.save(entity);
     }
