@@ -10,11 +10,15 @@ public interface StudentService {
     // Read operation
     Iterable<StudentEntity> getAll();
 
+
+
     //Update operation
     StudentEntity updateStudent(StudentEntity student, Long id);
 
     //Delete Operation
-    void deleteStudentById(Long id);
+   // void deleteStudentById(Long id);
 
+    boolean deleteStudent(Long id);
 
+    Iterable<StudentEntity> getStudentByName(String firstName);
 }

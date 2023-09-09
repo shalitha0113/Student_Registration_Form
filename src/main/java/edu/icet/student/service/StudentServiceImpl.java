@@ -6,6 +6,8 @@ import edu.icet.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -31,6 +33,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Iterable<StudentEntity> getStudentByName(String firstName) {
+        return repository.findByFirstName(firstName);
+    }
+
+    @Override
     public StudentEntity updateStudent(StudentEntity student, Long id) {
         StudentEntity entityById = repository.findById(id).get();
         entityById.setFirstName(student.getFirstName());
@@ -44,9 +51,20 @@ public class StudentServiceImpl implements StudentService {
         return repository.save(entityById);
     }
 
+    /*
     @Override
     public void deleteStudentById(Long id) {
         repository.deleteById(id);
     }
 
+     */
+
+    public boolean deleteStudent(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

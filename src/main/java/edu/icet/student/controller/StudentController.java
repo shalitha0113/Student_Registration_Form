@@ -4,7 +4,10 @@ import edu.icet.student.dao.StudentEntity;
 import edu.icet.student.dto.Student;
 import edu.icet.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
 
 
 @RestController
@@ -24,14 +27,32 @@ public class StudentController {
         return service.getAll();
     }
 
+    @GetMapping("/{firstName}")
+    public Iterable<StudentEntity> getStudentByName(@PathVariable String firstName) {
+        return service.getStudentByName(firstName);
+    }
+
+
     @PutMapping("/{id}")
-    public StudentEntity updateStudent(@RequestBody StudentEntity student, @PathVariable("id") Long id){
+    public StudentEntity updateStudent(@PathVariable Long id,@RequestBody StudentEntity student){
         return service.updateStudent(student,id);
     }
 
+    /*
     @DeleteMapping("/{id}")
-    public String deleteStudentById(@PathVariable("id") Long id){
+    public void deleteStudentById(@PathVariable("id") Long id){
         service.deleteStudentById(id);
-        return "Student Details Deleted.";
+    }
+
+
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
+        boolean deleted = service.deleteStudent(id);
+        if (deleted) {
+            return ResponseEntity.ok("Student deleted successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
