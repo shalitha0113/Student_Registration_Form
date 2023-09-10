@@ -38,13 +38,13 @@ public class StudentController {
 
 
     //Get Student by firstName
-    @GetMapping("/{firstName}")
+    @GetMapping("stu/{firstName}")
     public Iterable<StudentEntity> getStudentByName(@PathVariable String firstName) {
         return service.getStudentByName(firstName);
     }
 
     //Get Student by batch
-    @GetMapping("/{batch}")
+    @GetMapping("stu-batch/{batch}")
     public Iterable<StudentEntity> getStudentByBatch(@PathVariable String batch){
         return service.getStudentByBatch(batch);
     }
