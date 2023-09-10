@@ -27,25 +27,30 @@ public class StudentController {
         return service.getAll();
     }
 
-    @GetMapping("/{firstName}")
-    public Iterable<StudentEntity> getStudentByName(@PathVariable String firstName) {
-        return service.getStudentByName(firstName);
-    }
 
-
+    //Update Student
     @PutMapping("/{id}")
     public StudentEntity updateStudent(@PathVariable Long id,@RequestBody StudentEntity student){
         return service.updateStudent(student,id);
     }
 
-    /*
-    @DeleteMapping("/{id}")
-    public void deleteStudentById(@PathVariable("id") Long id){
-        service.deleteStudentById(id);
+    //Get Student by Id
+
+
+    //Get Student by firstName
+    @GetMapping("/{firstName}")
+    public Iterable<StudentEntity> getStudentByName(@PathVariable String firstName) {
+        return service.getStudentByName(firstName);
+    }
+
+    //Get Student by batch
+    @GetMapping("/{batch}")
+    public Iterable<StudentEntity> getStudentByBatch(@PathVariable String batch){
+        return service.getStudentByBatch(batch);
     }
 
 
-     */
+    //Delete Student
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
         boolean deleted = service.deleteStudent(id);

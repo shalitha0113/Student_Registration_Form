@@ -38,6 +38,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Iterable<StudentEntity> getStudentByBatch(String batch) {
+        return repository.findByBatch(batch);
+    }
+
+    @Override
     public StudentEntity updateStudent(StudentEntity student, Long id) {
         StudentEntity entityById = repository.findById(id).get();
         entityById.setFirstName(student.getFirstName());
@@ -51,13 +56,6 @@ public class StudentServiceImpl implements StudentService {
         return repository.save(entityById);
     }
 
-    /*
-    @Override
-    public void deleteStudentById(Long id) {
-        repository.deleteById(id);
-    }
-
-     */
 
     public boolean deleteStudent(Long id) {
         if (repository.existsById(id)) {
