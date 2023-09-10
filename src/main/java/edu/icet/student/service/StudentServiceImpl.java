@@ -6,6 +6,8 @@ import edu.icet.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -31,39 +33,36 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentEntity updateStudent(StudentEntity student, Long id) {
-        StudentEntity entityById=repository.findById(id).get();
-        if(null !=(student.getFirstName()) && !"".equalsIgnoreCase(student.getFirstName())) {
-            entityById.setFirstName(student.getFirstName());
-        }
-        if(null !=(student.getLastName()) && !"".equalsIgnoreCase(student.getLastName())) {
-            entityById.setLastName(student.getLastName());
-        }
-        if(null!=(student.getEmail()) && !"".equalsIgnoreCase((student.getEmail()))) {
-            entityById.setEmail(student.getEmail());
-        }
-        if(null!=(student.getDob()) && !"".equalsIgnoreCase((student.getDob()))) {
-            entityById.setDob(student.getDob());
-        }
-
-        if(null!=(student.getGender()) && !"".equalsIgnoreCase((student.getGender()))) {
-            entityById.setGender(student.getGender());
-        }
-        if(null!=(student.getAddress()) && !"".equalsIgnoreCase((student.getAddress()))) {
-            entityById.setAddress(student.getAddress());
-        }
-        if(null!=(student.getTelNo()) && !"".equalsIgnoreCase((student.getTelNo()))) {
-            entityById.setTelNo(student.getTelNo());
-        }
-        if(null!=(student.getBatch()) && !"".equalsIgnoreCase((student.getBatch()))) {
-            entityById.setBatch(student.getBatch());
-        }
-        return repository.save(entityById);
+    public Iterable<StudentEntity> getStudentByName(String firstName) {
+        return repository.findByFirstName(firstName);
     }
 
     @Override
-    public void deleteStudentById(Long id) {
-        repository.deleteById(id);
+    public Iterable<StudentEntity> getStudentByBatch(String batch) {
+        return repository.findByBatch(batch);
     }
 
+    @Override
+    public StudentEntity updateStudent(StudentEntity student, Long id) {
+        StudentEntity entityById = repository.findById(id).get();
+        entityById.setFirstName(student.getFirstName());
+        entityById.setLastName(student.getLastName());
+        entityById.setEmail(student.getEmail());
+        entityById.setDob(student.getDob());
+        entityById.setGender(student.getGender());
+        entityById.setAddress(student.getAddress());
+        entityById.setTelNo(student.getTelNo());
+        entityById.setBatch(student.getBatch());
+        return repository.save(entityById);
+    }
+
+
+    public boolean deleteStudent(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
